@@ -145,3 +145,105 @@ SELECT DepartmentName,
 FROM Employees
 GROUP BY DepartmentName
 HAVING COUNT(*) > 5;
+
+-- 1. Total and Average Sales by Product Category
+SELECT CategoryID, 
+       SUM(SalesAmount) AS TotalSales, 
+       AVG(SalesAmount) AS AvgSales
+FROM Sales
+GROUP BY CategoryID;
+
+-- 2. Count of Employees in HR Department
+SELECT COUNT(*) AS HR_EmployeeCount
+FROM Employees
+WHERE Department = 'HR';
+
+-- 3. Highest and Lowest Salary by Department
+SELECT DepartmentID, 
+       MAX(Salary) AS HighestSalary, 
+       MIN(Salary) AS LowestSalary
+FROM Employees
+GROUP BY DepartmentID;
+
+-- 4. Average Salary per Department
+SELECT DepartmentID, 
+       AVG(Salary) AS AvgSalary
+FROM Employees
+GROUP BY DepartmentID;
+
+-- 5. Average Salary and Employee Count per Department
+SELECT DepartmentID, 
+       AVG(Salary) AS AvgSalary, 
+       COUNT(*) AS EmployeeCount
+FROM Employees
+GROUP BY DepartmentID;
+
+-- 6. Product Categories with Average Price Greater Than 400
+SELECT CategoryID
+FROM Products
+GROUP BY CategoryID
+HAVING AVG(Price) > 400;
+
+-- 7. Total Sales by Year
+SELECT YEAR(SaleDate) AS Year, 
+       SUM(SalesAmount) AS TotalSales
+FROM Sales
+GROUP BY YEAR(SaleDate);
+
+-- 8. Customers with At Least 3 Orders
+SELECT CustomerID
+FROM Orders
+GROUP BY CustomerID
+HAVING COUNT(OrderID) >= 3;
+
+-- 9. Departments with Average Salary Expenses Greater Than 60000
+SELECT DepartmentID
+FROM Employees
+GROUP BY DepartmentID
+HAVING AVG(Salary) > 60000;
+
+-- 10. Average Price by Product Category Greater Than 150
+SELECT CategoryID
+FROM Products
+GROUP BY CategoryID
+HAVING AVG(Price) > 150;
+
+-- 11. Total Sales by Customer Over 1500
+SELECT CustomerID, 
+       SUM(SalesAmount) AS TotalSales
+FROM Sales
+GROUP BY CustomerID
+HAVING SUM(SalesAmount) > 1500;
+
+-- 12. Total and Average Salary by Department Over 65000
+SELECT DepartmentID, 
+       SUM(Salary) AS TotalSalary, 
+       AVG(Salary) AS AvgSalary
+FROM Employees
+GROUP BY DepartmentID
+HAVING AVG(Salary) > 65000;
+
+-- 13. Total Amount for Orders Weighing More Than $50 and Least Purchases
+SELECT CustomerID, 
+       SUM(OrderAmount) AS TotalAmount, 
+       MIN(OrderAmount) AS LeastPurchase
+FROM Orders
+WHERE Freight > 50
+GROUP BY CustomerID;
+
+-- 14. Total Sales and Unique Products Sold by Month and Year with At Least 2 Products Sold
+SELECT YEAR(OrderDate) AS Year, 
+       MONTH(OrderDate) AS Month, 
+       SUM(SalesAmount) AS TotalSales, 
+       COUNT(DISTINCT ProductID) AS UniqueProductsSold
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+HAVING COUNT(DISTINCT ProductID) >= 2;
+
+-- 15. Minimum and Maximum Order Quantity Per Year
+SELECT YEAR(OrderDate) AS Year, 
+       MIN(OrderQuantity) AS MinOrderQuantity, 
+       MAX(OrderQuantity) AS MaxOrderQuantity
+FROM Orders
+GROUP BY YEAR(OrderDate);
+
